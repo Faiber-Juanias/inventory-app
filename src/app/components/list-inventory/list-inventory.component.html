@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="card">
+    <h4 class="card-header"><strong>Listado de Ofertas de Trabajo</strong></h4>
+    <div class="card-body">
+      <a
+        class="btn btn-primary"
+        routerLink="/form"
+        title="Crear nueva Oferta de Trabajo"
+        role="button"
+        ><i class="fas fa-file" aria-hidden="true"></i> Nueva</a
+      >
+      <hr />
+      <table class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre Producto</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Fecha Ingreso</th>
+            <th scope="col">Usuario Registro</th>
+            <th scope="col">Usuario Actualiza</th>
+            <th scope="col">Fecha Actualiza</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let inv of inventory">
+            <td>{{inv.idProducto}}</td>
+            <td>{{inv.nombreProducto}}</td>
+            <td>{{inv.cantidad}}</td>
+            <td>{{inv.fechaIngreso}}</td>
+            <td>{{inv.usuarioRegistro ? inv.usuarioRegistro.nombre : ''}}</td>
+            <td>{{inv.usuarioActualiza ? inv.usuarioActualiza.nombre : ''}}</td>
+            <td>{{inv.fechaActualiza}}</td>
+            <td>
+              <a
+                href="#"
+                class="btn btn-success btn-sm"
+                role="button"
+                title="Editar el registro."
+                ><i class="fas fa-pencil-alt" aria-hidden="true"></i
+              ></a>
+              <a
+                href="#"
+                onclick="confirm('¿Estas seguro?')"
+                class="btn btn-success btn-sm"
+                role="button"
+                title="Eliminar el registro."
+                ><i class="fas fa-trash" aria-hidden="true"></i
+              ></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- /container -->

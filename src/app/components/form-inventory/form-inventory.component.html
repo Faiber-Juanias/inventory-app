@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="card">
+        <h4 class="card-header"><strong>Datos de la Mercancía</strong></h4>
+        <div class="card-body">
+            <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
+                <div>
+                    <input type="hidden" formControlName="idProduct" name="id">
+                    <input type="hidden" formControlName="fechaActualiza" name="fecha-actualiza">
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Producto</label>
+                            <input type="text" class="form-control" formControlName="nombre" id="nombre" name="nombre"
+                                placeholder="Nombre del producto" />
+                            <div class="error" *ngIf="formUser.get('nombre')?.hasError('required') && sendFormSave">
+                                <p>El Nombre del Producto es requerido</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="cantidad">Cantidad</label>
+                            <input type="number" class="form-control" formControlName="cantidad" id="cantidad" name="cantidad"
+                                placeholder="Cantidad del producto" />
+                            <div class="error" *ngIf="formUser.get('cantidad')?.hasError('required') && sendFormSave">
+                                <p>La cantidad del Producto es requerida</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="categoria">Fecha Ingreso</label>
+                            <input class="form-control" formControlName="fechaIngreso" type="datetime-local" id="fecha-ingreso" name="fecha-ingreso">
+                            <div class="error" *ngIf="formUser.get('fechaIngreso')?.hasError('required') && sendFormSave">
+                                <p>La Fecha de Ingreso del Producto es requerida</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="usuario-registro">Usuario Registro</label>
+                            <select class="form-control" formControlName="usuarioRegistro" name="usuario-registro" id="usuario-registro">
+                                <option></option>
+                                <option *ngFor="let usu of users" value="{{usu.idUsuario}}">{{usu.nombre}}</option>
+                            </select>
+                            <div class="error" *ngIf="formUser.get('usuarioRegistro')?.hasError('required') && sendFormSave">
+                                <p>El usuario que hace el registro del producto es requerido</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="usuario-actualiza">Usuario Actualiza</label>
+                            <select class="form-control" formControlName="usuarioActualiza" name="usuario-actualiza" id="usuario-actualiza">
+                                <option></option>
+                                <option *ngFor="let usu of users" value="{{usu.idUsuario}}">{{usu.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                &nbsp;
+                <a class="btn btn-secondary" routerLink="/list" title="Volver" role="button">Volver</a>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /container -->
