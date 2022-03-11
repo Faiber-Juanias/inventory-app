@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { ListInventoryComponent } from './components/list-inventory/list-inventory.component';
 import { FormInventoryComponent } from './components/form-inventory/form-inventory.component';
 import { InventoryServiceService } from './services/inventory-service.service';
+import { DatePipe } from '@angular/common';
 
 const routes: Routes = [
   { path: 'list', component: ListInventoryComponent },
   { path: 'form', component: FormInventoryComponent },
+  { path: 'form/:id', component: FormInventoryComponent },
   { path: '', component: ListInventoryComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '/', pathMatch: 'full' },
 ];
@@ -29,7 +31,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [
-    InventoryServiceService
+    InventoryServiceService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
