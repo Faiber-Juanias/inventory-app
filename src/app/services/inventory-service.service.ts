@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product';
@@ -48,6 +48,12 @@ export class InventoryServiceService {
 
   public async getProductById(id:number, manageResponse: any, manageError: any) {
     return this._http.get(Url.getUrlProductById()+id).toPromise()
+      .then(response => manageResponse(response))
+      .catch(error => manageError(error));
+  }
+
+  public async getProductFilter(params: HttpParams, manageResponse: any, manageError: any) {
+    return this._http.get(Url.getUrlProductFilter(), { params }).toPromise()
       .then(response => manageResponse(response))
       .catch(error => manageError(error));
   }

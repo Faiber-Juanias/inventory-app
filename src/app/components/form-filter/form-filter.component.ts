@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class FormFilterComponent implements OnInit {
 
   formFilter: FormGroup = new FormGroup({});
+
+  @Output() 
+  filterEvent: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -25,7 +28,7 @@ export class FormFilterComponent implements OnInit {
 
   onSubmit() {
     if (this.formFilter.valid) {
-      
+      this.filterEvent.emit(this.formFilter);
     }
   }
 
