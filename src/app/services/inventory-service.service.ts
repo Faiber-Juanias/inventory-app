@@ -18,15 +18,37 @@ export class InventoryServiceService {
    * Obtiene todos los productos del inventario
    * @returns 
    */
-  public getAllInventory(): Observable<Product[]> {
-    return this._http.get<Product[]>(Url.getUrlAllProducts());
+  public async getAllInventory(manageResponse: any, manageError: any) {
+    return this._http.get(Url.getUrlAllProducts()).toPromise()
+      .then(response => manageResponse(response))
+      .catch(error => manageError(error));
   }
 
   public async saveProduct(product: Product, manageResponse: any, manageError: any) {
     let headers:HttpHeaders = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json')
     return this._http.post(Url.getUrlSaveProduct(), product, { headers }).toPromise()
-      .then((response:any) => manageResponse(response))
+      .then(response => manageResponse(response))
+      .catch(error => manageError(error));
+  }
+
+  public async updateProduct(product: Product, manageResponse: any, manageError: any) {
+    let headers:HttpHeaders = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json')
+    return this._http.put(Url.getUrlSaveProduct(), product, { headers }).toPromise()
+      .then(response => manageResponse(response))
+      .catch(error => manageError(error));
+  }
+
+  public async deleteProduct(id:number, manageResponse: any, manageError: any) {
+    return this._http.delete(Url.getUrlDeleteProduct()+id).toPromise()
+      .then(response => manageResponse(response))
+      .catch(error => manageError(error));
+  }
+
+  public async getProductById(id:number, manageResponse: any, manageError: any) {
+    return this._http.get(Url.getUrlProductById()+id).toPromise()
+      .then(response => manageResponse(response))
       .catch(error => manageError(error));
   }
 
