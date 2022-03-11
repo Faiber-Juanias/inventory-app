@@ -6,6 +6,7 @@ export class Url {
     static getUrlSaveProduct() { return `${this.pathUrl}product/save` }
     static getUrlDeleteProduct() { return `${this.pathUrl}product/delete/` }
     static getUrlProductById() { return `${this.pathUrl}product/get/` }
+    static getUrlProductFilter() { return `${this.pathUrl}product/filter` }
 
     static getUrlAllUsers() { return `${this.pathUrl}user/all` }
 }

@@ -10,6 +10,7 @@ import { FormInventoryComponent } from './components/form-inventory/form-invento
 import { InventoryServiceService } from './services/inventory-service.service';
 import { DatePipe } from '@angular/common';
 import { FormFilterComponent } from './components/form-filter/form-filter.component';
+import { DateformatPipe } from './pipes/dateformat.pipe';
 
 const routes: Routes = [
   { path: 'list', component: ListInventoryComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
     AppComponent,
     ListInventoryComponent,
     FormInventoryComponent,
-    FormFilterComponent
+    FormFilterComponent,
+    DateformatPipe
   ],
   imports: [
     BrowserModule,
