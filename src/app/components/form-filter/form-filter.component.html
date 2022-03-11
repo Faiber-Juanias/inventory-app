@@ -1,0 +1,25 @@
+<div class="container">
+    <div>
+        <form [formGroup]="formFilter" (ngSubmit)="onSubmit()">
+            <div class="row align-items-end">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="fecha" class="form-label">Fecha Ingreso</label>
+                        <input type="date" class="form-control" formControlName="fechaIngreso" id="fecha-ingreso" name="fecha-ingreso"
+                            placeholder="Nombre del producto" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="usuario-nombre" class="form-label">Usuario/Nombre Producto</label>
+                        <input type="text" class="form-control" formControlName="nombreUsuProducto" id="usuario-nombre" name="usuario-nombre" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /container -->
