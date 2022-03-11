@@ -1,5 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from "@angular/router";
 import { FormUtil } from 'src/app/form-util/form-send';
 import { Product } from 'src/app/models/product';
 import { ResponseApi } from 'src/app/models/response-api';
@@ -16,13 +18,50 @@ export class FormInventoryComponent implements OnInit {
   users: User[] = [];
   formUser: FormGroup = new FormGroup({});
   sendFormSave: boolean = false;
+  formUpdate: boolean = false;
 
-  constructor(private _service: InventoryServiceService) { }
+  constructor(private _service: InventoryServiceService, private _rute: ActivatedRoute, private _datepipe: DatePipe) { 
+    this._rute.params.subscribe(param => {
+      if (param['id'] != undefined) {
+        this.formUpdate = true;
+        this._service.getProductById(param['id'], (response:any) => {
+          this.updateFormSave(response.response);
+        }, null);
+      }
+    })
+  }
 
   ngOnInit(): void {
     this.createFormSave();
-
     this._service.getAllUser().subscribe(u => this.users = u);
+  }
+
+  updateFormSave(prod: Product) {
+
+    let id: number = 0;
+    let nombre: string = '';
+    let cantidad: number = 0;
+    let fechaIngreso: any;
+    let usuarioRegistro: number = 0;
+    let usuarioActualiza: number = 0;
+
+    if (prod && prod.idProducto) { id = prod.idProducto }
+    if (prod && prod.nombreProducto) { nombre = prod.nombreProducto; }
+    if (prod && prod.cantidad) { cantidad = prod.cantidad; }
+    if (prod && prod.fechaIngreso) { 
+      fechaIngreso = this._datepipe.transform(prod.fechaIngreso, 'yyyy-MM-ddTHH:mm:ss');
+    }
+    if (prod && prod.usuarioRegistro && prod.usuarioRegistro.idUsuario) { usuarioRegistro = prod.usuarioRegistro.idUsuario; }
+    if (prod && prod.usuarioActualiza && prod.usuarioActualiza.idUsuario) { usuarioActualiza = prod.usuarioActualiza.idUsuario; }
+
+    this.formUser = new FormGroup({
+      idProduct: new FormControl(id),
+      nombre: new FormControl(nombre, Validators.required),
+      cantidad: new FormControl(cantidad, Validators.required),
+      fechaIngreso: new FormControl(fechaIngreso, Validators.required),
+      usuarioRegistro: new FormControl(usuarioRegistro, Validators.required),
+      usuarioActualiza: new FormControl(usuarioActualiza),
+    });
   }
 
   createFormSave() {
@@ -33,26 +72,30 @@ export class FormInventoryComponent implements OnInit {
       fechaIngreso: new FormControl('', Validators.required),
       usuarioRegistro: new FormControl('', Validators.required),
       usuarioActualiza: new FormControl(''),
-      fechaActualiza: new FormControl(''),
     });
   }
 
   onSubmit() {
     this.sendFormSave = true;
     if (this.formUser.valid) {
-      let producto: Product = FormUtil.castFormSaveToProduct(this.formUser);
-      this._service.saveProduct(producto, this.responseSave, this.responseError);
+      let producto: Product;
+      if (this.formUpdate) {
+        producto = FormUtil.castFormUpdateToProduct(this.formUser, this._datepipe);
+        this._service.updateProduct(producto, this.responseSave, this.responseError);
+      } else {
+        producto = FormUtil.castFormSaveToProduct(this.formUser);
+        this._service.saveProduct(producto, this.responseSave, this.responseError);
+      }
+      console.log('request', producto);
     }
   }
 
   responseSave(response: ResponseApi) {
-    console.log('response: ', response.response);
     window.location.href = "/";
   }
 
   responseError(error: ResponseApi) {
     console.log('error: ', error);
-    
   }
 
 }

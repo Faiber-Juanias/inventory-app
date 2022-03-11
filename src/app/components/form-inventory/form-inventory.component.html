@@ -5,22 +5,21 @@
             <form [formGroup]="formUser" (ngSubmit)="onSubmit()">
                 <div>
                     <input type="hidden" formControlName="idProduct" name="id">
-                    <input type="hidden" formControlName="fechaActualiza" name="fecha-actualiza">
                 </div>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="nombre">Nombre Producto</label>
+                            <label for="nombre" class="form-label">Nombre Producto</label>
                             <input type="text" class="form-control" formControlName="nombre" id="nombre" name="nombre"
-                                placeholder="Nombre del producto" />
+                                placeholder="Nombre del producto" required />
                             <div class="error" *ngIf="formUser.get('nombre')?.hasError('required') && sendFormSave">
-                                <p>El Nombre del Producto es requerido</p>
+                                El Nombre del Producto es requerido
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="cantidad">Cantidad</label>
+                            <label for="cantidad" class="form-label">Cantidad</label>
                             <input type="number" class="form-control" formControlName="cantidad" id="cantidad" name="cantidad"
                                 placeholder="Cantidad del producto" />
                             <div class="error" *ngIf="formUser.get('cantidad')?.hasError('required') && sendFormSave">
@@ -30,7 +29,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="categoria">Fecha Ingreso</label>
+                            <label for="categoria" class="form-label">Fecha Ingreso</label>
                             <input class="form-control" formControlName="fechaIngreso" type="datetime-local" id="fecha-ingreso" name="fecha-ingreso">
                             <div class="error" *ngIf="formUser.get('fechaIngreso')?.hasError('required') && sendFormSave">
                                 <p>La Fecha de Ingreso del Producto es requerida</p>
@@ -39,8 +38,8 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="usuario-registro">Usuario Registro</label>
-                            <select class="form-control" formControlName="usuarioRegistro" name="usuario-registro" id="usuario-registro">
+                            <label for="usuario-registro" class="form-label">Usuario Registro</label>
+                            <select class="form-select" formControlName="usuarioRegistro" name="usuario-registro" id="usuario-registro">
                                 <option></option>
                                 <option *ngFor="let usu of users" value="{{usu.idUsuario}}">{{usu.nombre}}</option>
                             </select>
@@ -49,10 +48,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" *ngIf="formUpdate">
                         <div class="form-group">
-                            <label for="usuario-actualiza">Usuario Actualiza</label>
-                            <select class="form-control" formControlName="usuarioActualiza" name="usuario-actualiza" id="usuario-actualiza">
+                            <label for="usuario-actualiza" class="form-label">Usuario Actualiza</label>
+                            <select class="form-select" formControlName="usuarioActualiza" name="usuario-actualiza" id="usuario-actualiza">
                                 <option></option>
                                 <option *ngFor="let usu of users" value="{{usu.idUsuario}}">{{usu.nombre}}</option>
                             </select>
