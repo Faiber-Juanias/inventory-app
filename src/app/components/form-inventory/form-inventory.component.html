@@ -48,13 +48,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3" *ngIf="formUpdate">
+                    <div class="col-md-3" [hidden]="!formUpdate">
                         <div class="form-group">
                             <label for="usuario-actualiza" class="form-label">Usuario Actualiza</label>
                             <select class="form-select" formControlName="usuarioActualiza" name="usuario-actualiza" id="usuario-actualiza">
                                 <option></option>
                                 <option *ngFor="let usu of users" value="{{usu.idUsuario}}">{{usu.nombre}}</option>
                             </select>
+                            <div class="error" *ngIf="formUser.get('usuarioActualiza')?.hasError('required') && sendFormSave">
+                                <p>El usuario que hace la actualización del producto es requerido</p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -43,7 +43,7 @@ export class FormInventoryComponent implements OnInit {
     let cantidad: number = 0;
     let fechaIngreso: any;
     let usuarioRegistro: number = 0;
-    let usuarioActualiza: number = 0;
+    let usuarioActualiza: number|null = null;
 
     if (prod && prod.idProducto) { id = prod.idProducto }
     if (prod && prod.nombreProducto) { nombre = prod.nombreProducto; }
@@ -60,7 +60,7 @@ export class FormInventoryComponent implements OnInit {
       cantidad: new FormControl(cantidad, Validators.required),
       fechaIngreso: new FormControl(fechaIngreso, Validators.required),
       usuarioRegistro: new FormControl(usuarioRegistro, Validators.required),
-      usuarioActualiza: new FormControl(usuarioActualiza),
+      usuarioActualiza: new FormControl(usuarioActualiza, Validators.required),
     });
   }
 
