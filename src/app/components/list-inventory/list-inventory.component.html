@@ -2,9 +2,19 @@
   <div class="card">
     <h4 class="card-header"><strong>Listado de Ofertas de Trabajo</strong></h4>
     <div class="card-body">
+      <div>
+        <div class="text-end">
+          <button class="btn btn-primary" (click)="btnFilters()">Filtro</button>
+        </div>
+        <div [hidden]="!showFilter">
+          <app-form-filter></app-form-filter>
+        </div>
+      </div>
+      <hr />
       <a class="btn btn-primary" routerLink="/form" title="Crear un producto" role="button"><i
           class="fas fa-file" aria-hidden="true"></i> Nuevo</a>
-      <hr />
+      <br>
+      <br>
       <table class="table table-hover">
         <thead class="thead-light">
           <tr>

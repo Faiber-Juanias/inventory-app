@@ -11,6 +11,7 @@ import { InventoryServiceService } from 'src/app/services/inventory-service.serv
 export class ListInventoryComponent implements OnInit {
 
   inventory:Product[] = [];
+  showFilter: boolean = false;
 
   constructor(private _servive: InventoryServiceService) { }
 
@@ -36,7 +37,10 @@ export class ListInventoryComponent implements OnInit {
 
   responseError(error: ResponseApi) {
     console.log('error: ', error);
-    
+  }
+
+  btnFilters() {
+    this.showFilter = !this.showFilter;
   }
 
 }
